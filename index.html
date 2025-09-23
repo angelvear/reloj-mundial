@@ -86,9 +86,15 @@
       selector.appendChild(option);
     });
 
-    // Guardar zona horaria actual
-    let currentZone = "UTC";
-    selector.value = currentZone;
+    // Detectar la zona horaria del navegador
+    let currentZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+ // Si la zona está en la lista, seleccionarla automáticamente
+     if (timezones.includes(currentZone)) {
+         selector.value = currentZone;
+     } else {
+         selector.value = "UTC"; // fallback
+     }
 
     function updateClock() {
       const now = new Date();
@@ -116,3 +122,4 @@
   </script>
 </body>
 </html>
+
